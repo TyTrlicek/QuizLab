@@ -3,22 +3,19 @@
 
 /* globals.css */
 
-/* Custom colors - Modern Quiz Theme */
 :root {
-  --background-color: #121826; /* Rich dark blue-gray background */
-  --primary-color: #6366F1;    /* Vibrant indigo */
-  --primary-hover: #4F46E5;    /* Slightly darker indigo for hover states */
-  --accent-color: #EC4899;     /* Bright pink accent */
-  --accent-hover: #DB2777;     /* Darker pink for hover */
-  --text-color: #F3F4F6;       /* Off-white text */
-  --text-secondary: #9CA3AF;   /* Muted gray for secondary text */
-  --input-bg: #1E293B;         /* Slightly lighter than background for inputs */
-  --dark-gray: #1A2234;        /* Slightly lighter than background for cards */
-  --border-color: #2D3748;     /* Subtle border color */
-  --success-color: #10B981;    /* Green for success states */
-  --error-color: #EF4444;      /* Red for error states */
-  --warning-color: #F59E0B;    /* Amber for warnings */
+  --background-color: #0A0A23;
+  --primary-color: #FF007C;
+  --primary-hover: #DA0069;
+  --accent-color: #00FFFF;
+  --accent-hover: #00E0E0;
+  --text-color: #FFFFFF;
+  --text-secondary: #A2A2F6;
+  --input-bg: #1E1E42;
+  --dark-gray: #2F2F56;
+  --border-color: #3D3D7A;
 }
+
 
 body {
   background-color: var(--background-color);
@@ -74,5 +71,15 @@ a {
 
 .btn-accent:hover {
   background-color: var(--accent-hover);
+}
+
+.no-scrollbar {
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE 10+ */
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 

@@ -43,7 +43,7 @@ const ThumbnailUpload: React.FC<ThumbnailUploadProps> = ({ onFileSelect }) => {
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 w-1/2">
       <label className="block text-text-secondary font-semibold">
         Upload Quiz Thumbnail
       </label>

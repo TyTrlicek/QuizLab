@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SearchResults from './SearchResults';
+import Dropdown from './Dropdown';
 
 type Tab = 'upload' | 'search';
 
@@ -8,25 +9,22 @@ const ImageSelector: React.FC = () => {
 
   return (
     <div className="max-w-lg mx-auto my-8 border border-border-color rounded-lg shadow-sm">
-      
-      
       <div className="flex border-b border-border-color">
         <button
           onClick={() => setActiveTab('upload')}
-          className={`flex-1 py-2 text-center text-sm font-medium focus:outline-none 
-            ${activeTab === 'upload' ? '!bg-gray-700 !text-white !border-b-2 !border-primary-color' : '!text-text-color'}`}
+          className={`flex-1 py-2 text-center text-sm font-medium focus:outline-none cursor-pointer
+            ${activeTab === 'upload' ? '!bg-[var(--accent-color)] !text-[var(--text-secondary)] !border-b-2 !border-primary-color' : '!text-text-color'}`}
         >
           Upload Image
         </button>
         <button
           onClick={() => setActiveTab('search')}
-          className={`flex-1 py-2 text-center text-sm font-medium focus:outline-none 
-            ${activeTab === 'search' ? '!bg-gray-700 !text-white !border-b-2 !border-primary-color' : '!text-text-color'}`}
+          className={`flex-1 py-2 text-center text-sm font-medium focus:outline-none cursor-pointer
+            ${activeTab === 'search' ? '!bg-[var(--accent-color)] !text-[var(--text-secondary)] !border-b-2 !border-primary-color' : '!text-text-color'}`}
         >
           Search Existing Images
         </button>
       </div>
-
       {/* Content section */}
       <div className="p-4">
         {activeTab === 'upload' ? (
@@ -50,8 +48,7 @@ const ImageSelector: React.FC = () => {
             </label>
           </div>
         ) : (
-          // Search Area
-          
+          // Search Area  
           <SearchResults />
         )}
       </div>
