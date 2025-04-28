@@ -1,42 +1,78 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* globals.css */
+
+/* Custom colors - Modern Quiz Theme */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  --background-color: #121826; /* Rich dark blue-gray background */
+  --primary-color: #6366F1;    /* Vibrant indigo */
+  --primary-hover: #4F46E5;    /* Slightly darker indigo for hover states */
+  --accent-color: #EC4899;     /* Bright pink accent */
+  --accent-hover: #DB2777;     /* Darker pink for hover */
+  --text-color: #F3F4F6;       /* Off-white text */
+  --text-secondary: #9CA3AF;   /* Muted gray for secondary text */
+  --input-bg: #1E293B;         /* Slightly lighter than background for inputs */
+  --dark-gray: #1A2234;        /* Slightly lighter than background for cards */
+  --border-color: #2D3748;     /* Subtle border color */
+  --success-color: #10B981;    /* Green for success states */
+  --error-color: #EF4444;      /* Red for error states */
+  --warning-color: #F59E0B;    /* Amber for warnings */
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+input,
+textarea,
+button {
+  border-color: var(--border-color);
+  background-color: var(--input-bg);
+  color: var(--text-color);
+}
+
+input:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+  ring: 2px solid var(--primary-color);
+}
+
+h1, h2, h3, h4 {
+  color: var(--text-color);
+}
+
+label {
+  color: var(--text-secondary);
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  color: var(--primary-color);
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* Add a subtle gradient background option */
+.gradient-bg {
+  background: linear-gradient(120deg, #121826 0%, #192339 100%);
 }
+
+/* Button styles */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-accent {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.btn-accent:hover {
+  background-color: var(--accent-hover);
+}
+
