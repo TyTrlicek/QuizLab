@@ -36,12 +36,16 @@ const Matchup: React.FC<MatchupProps> = ({
     return 'globe.svg';
   };
 
+
+
   const renderMedia = (item: SelectedListItem) => {
+
+    console.log(item.title);
     if (isAnime(item) || isMusic(item)) {
       return (
         <img
-          src={getImageUrl(item)}
-          alt={getTitle(item)}
+          src={item.imageUrl}
+          alt={item.title}
           className="w-[600px] h-[600px] object-cover rounded-xl shadow-md"
         />
       );

@@ -1,15 +1,17 @@
 "use client"
 
 import React, { useEffect } from 'react'
-import Image from 'next/image'
 import Tournament from '@/components/Tournament'
+import { useParams } from 'next/navigation';
 
 
 
 const page = () => {
+
+    const { id } = useParams() as { id: string };
   return (
     <>
-    <Tournament />
+    <Tournament id = {id}/>
     </>
   )
 }

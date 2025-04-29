@@ -13,6 +13,7 @@ export interface BaseMedia {
     id: string;
     url: string;
     videoId: string;
+    imageUrl?: string;
     title: string;
     type: 'video';
     mediaType: 'video';
@@ -67,6 +68,16 @@ export interface BaseMedia {
       }
     },
   };
+
+  export interface Post {
+    id: number;
+    quizTitle: string;
+    selectedCategories: string[];
+    quizType: string;
+    quizList: SelectedListItem[]; 
+    createdAt: string;
+    image: string;
+  }
   
   
   

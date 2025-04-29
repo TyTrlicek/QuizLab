@@ -15,8 +15,13 @@ datasource db {
 
 // prisma/schema.prisma
 model Quiz {
-  id        Int      @id @default(autoincrement())
-  title     String
+  id        String      @id @default(uuid())
+  quizTitle     String @default("")
+  selectedCategories String[]
+  quizType String @default("")
+  quizList Json @default("{}")
+  image String @default("https://via.placeholder.com/200")
+
   createdAt DateTime @default(now())
 }
 

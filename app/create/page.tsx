@@ -40,6 +40,22 @@ const page = () => {
         redirect('/create/trivia');
     }
 
+    // Calculate the upper bound for padding (padded to the next power of 2)
+    let upperBound = 2 ** Math.ceil(Math.log2(selectedList.length));
+    console.log('upperbound', upperBound);
+
+    const initialLength = selectedList.length;
+    const paddedList = [...selectedList];
+
+    // Add padding to the list to the next power of 2
+    for (let i = initialLength; i < upperBound; i++) {
+      paddedList.push(DEFAULT_MEDIA_ITEM);
+    }
+
+    setSelectedList(paddedList); // Set the padded list
+
+    console.log('selectedlist length', selectedList.length);
+
     if (quizType === 'Tournament') {
       const reducedList = selectedList.map(item => ({
         id: item.id,
@@ -58,21 +74,7 @@ const page = () => {
         const res = await axios.post('http://localhost:5000/api/create', data);
         setResponseMsg(res.data.message);
     
-        // Calculate the upper bound for padding (padded to the next power of 2)
-        let upperBound = 2 ** Math.ceil(Math.log2(selectedList.length));
-        console.log('upperbound', upperBound);
-    
-        const initialLength = selectedList.length;
-        const paddedList = [...selectedList];
-    
-        // Add padding to the list to the next power of 2
-        for (let i = initialLength; i < upperBound; i++) {
-          paddedList.push(DEFAULT_MEDIA_ITEM);
-        }
-    
-        setSelectedList(paddedList); // Set the padded list
-    
-        console.log('selectedlist length', selectedList.length);
+        
     
         setTimeout(() => {
           router.push('/play/tournament'); // Navigate to the tournament page
@@ -97,7 +99,7 @@ const page = () => {
           setSelectedList(paddedList);
           console.log('selectedlist length', selectedList.length);
           setTimeout(() => {
-            router.push('/play/tournament');
+            router.push('/');
           }, 0);
     }
   }

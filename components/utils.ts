@@ -3,6 +3,10 @@ import { useSelectedList } from '@/components/SelectedListContext';
 import { Anime } from '@/components/types/Anime';
 import { isAnime, isMusic, SelectedListItem, YoutubeEntry } from './types';
 
+async function fetchList() {
+  
+}
+
 export const categoriesList = [
     'anime',
     'manga',
@@ -26,7 +30,7 @@ export const getImageUrl = (item: SelectedListItem): string => {
     return item.picture_medium;
   }
   // Fallback image
-  return '/fallback.jpg';
+  return 'https://via.placeholder.com/200';
 };
 
 

@@ -11,17 +11,31 @@ type ItemPair = {
     second: SelectedListItem;
 }
 
-const Tournament = () => {
-    const { selectedList, setSelectedList } = useSelectedList();
+type TournamentProps = {
+    id: string;
+  };
+
+
+const Tournament = ({ id }: TournamentProps) => {
+
     const [roundState, setRoundState] = useState<ItemPair[]>([]);
     const [itemState, setItemState] = useState<ItemPair | null>(null);
     const [index, setIndex] = useState(0);
     const [winnerArr, setWinnerArr] = useState<SelectedListItem[]>([]);
     const [finalWinner, setFinalWinner] = useState<SelectedListItem>();
+    const [selectedList, setSelectedList] = useState<SelectedListItem[]>([]);
 
     useEffect(() => {
+        async function fetchDatabase() {
+          const res = await fetch(`http://localhost:5000/getquiz/${id}`);
+          const data = await res.json();
+          setSelectedList(data);
+        }
+        fetchDatabase();
+      }, [id]);
+      
+    useEffect(() => {
         if (!selectedList || selectedList.length === 0) {
-            setSelectedList([]); // Set to an empty array or some default value if necessary
             return;
         }
         // Fetch first round data when selectedList is available
@@ -31,7 +45,7 @@ const Tournament = () => {
             setItemState(firstRound[0]);
         }
         fetchData();
-    }, [selectedList, setSelectedList]); // Re-run when selectedList changes
+    }, [selectedList]); // Re-run when selectedList changes
 
     function handleOnClick(clickedItem: SelectedListItem) {
         if (roundState.length <= 1) {
