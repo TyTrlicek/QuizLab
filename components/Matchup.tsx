@@ -12,6 +12,7 @@ type MatchupProps = {
   handleOnClick: (item: SelectedListItem) => void;
   totalRoundCount: number;
   finalWinner?: SelectedListItem;
+  imageOrVideo: string;
 };
 
 const Matchup: React.FC<MatchupProps> = ({
@@ -20,42 +21,26 @@ const Matchup: React.FC<MatchupProps> = ({
   handleOnClick,
   totalRoundCount,
   finalWinner,
+  imageOrVideo
 }) => {
-  const getTitle = (item: SelectedListItem): string => {
-    if (isAnime(item) || isMusic(item) || isVideo(item)) {
-      return item.title ?? 'Unknown Title';
-    }
-    return 'Unknown';
-  };
-  
-
-  const getImageUrl = (item: SelectedListItem): string => {
-    if (isAnime(item)) return item.images.jpg.image_url;
-    if (isMusic(item)) return item.picture_medium;
-    if (isVideo(item)) return `https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`;
-    return 'globe.svg';
-  };
-
-
 
   const renderMedia = (item: SelectedListItem) => {
-
-    console.log(item.title);
-    if (isAnime(item) || isMusic(item)) {
+    console.log(item.videoId);
+    if(imageOrVideo === "Image")
       return (
         <img
-          src={item.imageUrl}
+          src={item.image ? item.image : ``}
           alt={item.title}
           className="w-[600px] h-[600px] object-cover rounded-xl shadow-md"
         />
       );
-    }
 
-    if (isVideo(item)) {
+    if (imageOrVideo === "Video") {
+      console.log(item.videoId);
       return (
         <iframe
           src={`https://www.youtube.com/embed/${item.videoId}`}
-          title={getTitle(item)}
+          title={item.title}
           className="w-[600px] h-[337.5px] rounded-xl shadow-md"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
@@ -74,11 +59,11 @@ const Matchup: React.FC<MatchupProps> = ({
 
   const Card = ({ item }: { item: SelectedListItem }) => (
     <div
-      className="flex flex-col justify-center items-center w-1/2 p-4 m-2 rounded-2xl border border-[var(--border-color)] bg-[var(--input-bg)] cursor-pointer transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+      className="flex flex-col justify-center items-center w-1/2 p-4 m-2 rounded-2xl border border-[var(--border-color)] bg-[var(--inputhover-bg)] cursor-pointer transition-transform duration-300 :scale-105 hover:shadow-lg"
       onClick={() => handleOnClick(item)}
     >
       <span className="text-[var(--text-color)] text-xl font-semibold mb-4 text-center">
-        {getTitle(item)}
+        {item.title}
       </span>
       {renderMedia(item)}
     </div>
@@ -88,8 +73,8 @@ const Matchup: React.FC<MatchupProps> = ({
     return (
       <div className="flex justify-center items-center h-full bg-[var(--background-color)] p-8">
         <div className="flex flex-col justify-center items-center bg-[var(--input-bg)] p-6 rounded-2xl shadow-xl border border-[var(--border-color)]">
-          <span className="text-[var(--primary-color)] text-3xl font-bold mb-6">
-            Winner: {getTitle(finalWinner)}
+          <span className="text-[var(--primary-color)] text-3xl font-bold mb-6 cursor-alias">
+            Winner: {finalWinner.title}
           </span>
           {renderMedia(finalWinner)}
         </div>

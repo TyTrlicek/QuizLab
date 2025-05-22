@@ -40,9 +40,9 @@ const page = () => {
         redirect('/create/trivia');
     }
 
-    // Calculate the upper bound for padding (padded to the next power of 2)
+    if (quizType === 'Tournament' && imageOrVideo === "Image") {
+      // Calculate the upper bound for padding (padded to the next power of 2)
     let upperBound = 2 ** Math.ceil(Math.log2(selectedList.length));
-    console.log('upperbound', upperBound);
 
     const initialLength = selectedList.length;
     const paddedList = [...selectedList];
@@ -53,14 +53,11 @@ const page = () => {
     }
 
     setSelectedList(paddedList); // Set the padded list
-
-    console.log('selectedlist length', selectedList.length);
-
-    if (quizType === 'Tournament') {
       const reducedList = selectedList.map(item => ({
         id: item.id,
         title: item.title,
         image: getImageUrl(item),
+
       }));
     
       try {
@@ -69,15 +66,15 @@ const page = () => {
           quizTitle,
           selectedCategories,
           reducedList,
-        };
-    
+          imageOrVideo,
+        };    
         const res = await axios.post('http://localhost:5000/api/create', data);
         setResponseMsg(res.data.message);
     
         
     
         setTimeout(() => {
-          router.push('/play/tournament'); // Navigate to the tournament page
+          router.push('/'); // Navigate to the tournament page
         }, 0);
       } catch (error) {
         console.error('Error sending Post request:', error);
@@ -88,7 +85,6 @@ const page = () => {
 
     if(quizType === 'Tournament' && imageOrVideo === "Video"){
       let upperBound = 2 ** Math.ceil(Math.log2(selectedList.length));
-          console.log('upperbound', upperBound);
         
           const initialLength = selectedList.length;
           const paddedList = [...selectedList];
@@ -97,10 +93,35 @@ const page = () => {
             paddedList.push(DEFAULT_YOUTUBE_ITEM);
           }
           setSelectedList(paddedList);
-          console.log('selectedlist length', selectedList.length);
-          setTimeout(() => {
-            router.push('/');
-          }, 0);
+          
+          const reducedList = selectedList.map(item => ({
+            id: item.id,
+            title: item.title,
+            image: getImageUrl(item),
+            videoId: item.videoId
+          }));
+          try {
+            const data = {
+              quizType,
+              quizTitle,
+              selectedCategories,
+              reducedList,
+              imageOrVideo,
+            };
+        
+            const res = await axios.post('http://localhost:5000/api/create', data);
+            setResponseMsg(res.data.message);
+        
+            
+    
+            setTimeout(() => {
+              router.push('/'); // Navigate to the tournament page
+            }, 0);
+          } catch (error) {
+            console.error('Error sending Post request:', error);
+            setResponseMsg('Something went wrong');
+          }
+          
     }
   }
 
@@ -206,10 +227,11 @@ const page = () => {
               <Button variant={'default'} size={'sm'} effect={'ringHover'} onClick={handleClearList} className='cursor-pointer'>Clear List</Button>
             </div>
             <div className="flex justify-center">
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 border px-5" style={{ borderColor: 'var(--text-color)' }}>
+              <div className="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 border px-5 max-h-96 overflow-auto no-scrollbar my-4" style={{ borderColor: 'var(--text-color)' }}>
                 {selectedList.map((item, index) => (
-                  <div key={`selected-${index}`} className="relative group rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <img src={getImageUrl(item)} alt={`Selected ${index}`} className="w-full h-full object-cover" />
+                  <div key={`selected-${index}`}>
+                  <div className="relative group rounded-lg overflow-hidden shadow-md mt-1 mb-1 hover:shadow-lg transition-shadow duration-300 h-52">
+                    <img src={getImageUrl(item)} alt={`Selected ${index}`} className="w-full h-full" />
                     <button
                       className="absolute top-2 right-2 bg-black/60 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                       title="Remove"
@@ -217,6 +239,9 @@ const page = () => {
                     >
                       ✕
                     </button>
+                    
+                  </div>
+                  <div key={`title-${index}`}>{item.title || 'default title'}</div>
                   </div>
                 ))}
               </div>
@@ -238,7 +263,7 @@ const page = () => {
         </button>
         <button
           className="px-6 py-2 rounded-lg cursor-pointer"
-          style={{ backgroundColor: 'var(--accent-color)', color: 'var(--text-secondary)' }}
+          style={{ backgroundColor: 'var(--accent-color)', color: 'var(--text-color)' }}
           onClick={() => handleQuizPublish(quizTitle, quizType, selectedCategories)}
         >
           Create Quiz

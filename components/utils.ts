@@ -8,6 +8,7 @@ async function fetchList() {
 }
 
 export const categoriesList = [
+    'all',
     'anime',
     'manga',
     'sports',
@@ -30,8 +31,9 @@ export const getImageUrl = (item: SelectedListItem): string => {
     return item.picture_medium;
   }
   // Fallback image
-  return 'https://via.placeholder.com/200';
+  return 'https://via.placeholder.com/300';
 };
+
 
 
 

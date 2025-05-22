@@ -21,6 +21,8 @@ model Quiz {
   quizType String @default("")
   quizList Json @default("{}")
   image String @default("https://via.placeholder.com/200")
+  imageOrVideo String @default("Image")
+  videoId String?
 
   createdAt DateTime @default(now())
 }

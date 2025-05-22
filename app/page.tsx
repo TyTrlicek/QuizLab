@@ -13,9 +13,9 @@ import { Post, SelectedListItem } from "@/components/types";
 
 
 export default function Home() {
-
-  const items : string[] = ['1','2']
   const [postState, setPostState] = useState<Post[]>([]);
+  const [selectedSort, setSelectedSort] = useState('Newest');
+  const [selectedCategory, setSelectedCategory] = useState('all'); // or categoriesList[0]
 
   useEffect(() => {
     async function fetchPosts() {
@@ -27,30 +27,39 @@ export default function Home() {
         console.error('Error fetching posts:', error);
       }
     }
-  
+
     fetchPosts();
   }, []);
-  
-
-  useEffect(() => {
-    console.log(postState);
-  }, [postState]);
 
   return (
     <>
-    <div className = "h-12 mt-2 flex justify-between mx-4">
+      <div className="h-12 mt-2 flex items-end justify-start gap-x-4 lg:mx-48 md:mx-32 sm:mx-2">
+  <div className="flex items-end gap-x-4">
+    <Dropdown
+      dropDownElements={['Newest', 'Trending', 'Most Popular']}
+      dropDownTitle="sort"
+      onChange={setSelectedSort}
+    />
+    <Dropdown
+      dropDownElements={categoriesList}
+      dropDownTitle="categories"
+      onChange={setSelectedCategory}
+    />
+  </div>
+  <input
+    type="text"
+    placeholder="Search"
+    className="border-2 border-gray-500 rounded-2xl p-2 w-1/3"
+  />
+</div>
 
-      <div className="flex items-center gap-x-4 flex-1/2">
-        <Dropdown dropDownElements={['Newest', 'Trending', 'Most Popular']} dropDownTitle={'sort'}/>
-        <Dropdown dropDownElements={categoriesList} dropDownTitle={'categories'}/>
-      </div>
-      <input type = "text" placeholder='Search' className='border-2 border-gray-500 rounded-2xl p-2 flex-1/2 mx-4'></input>
-    </div>
-    <main>
-      <div>{postState.length > 0 ? postState[0].quizTitle : "Loading..."}</div>
-      <QuizList posts={postState}/>
-    </main>
+      <main>
+        <QuizList
+          posts={postState}
+          selectedSort={selectedSort}
+          selectedCategory={selectedCategory}
+        />
+      </main>
     </>
-    
   );
 }

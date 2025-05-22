@@ -4,8 +4,9 @@ export interface BaseMedia {
     type: 'image' | 'video';  // Used for rendering
     title: string;
     imageUrl?: string;
+    image?: string
     videoId?: string;
-    mediaType: 'anime' | 'music' | 'video';
+    mediaType: 'anime' | 'music' | 'video' | 'upload';
   }
   
   // YouTube item
@@ -17,6 +18,7 @@ export interface BaseMedia {
     title: string;
     type: 'video';
     mediaType: 'video';
+    image?: string;
   }
   
   // Anime item
@@ -29,6 +31,12 @@ export interface BaseMedia {
       };
     };
   }
+
+  export interface UploadedImage extends BaseMedia {
+    mediaType: 'upload';
+    file: File;
+  }
+  
   
   // Music item
   export interface Music extends BaseMedia {
@@ -93,6 +101,7 @@ export interface BaseMedia {
   
   
   // A shared type that includes everything you'll select from
-  export type MediaItem = Anime | Music | Video;
+  export type MediaItem = Anime | Music | Video | UploadedImage;
   export type SelectedListItem = MediaItem | YoutubeEntry;
+  
   

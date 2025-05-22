@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { getFirstRound, getNewRound } from './utils';
 import Matchup from './Matchup';
 import { useSelectedList } from '@/components/SelectedListContext';
-import { SelectedListItem } from './types';
+import { DEFAULT_MEDIA_ITEM, SelectedListItem } from './types';
 
 type ItemPair = {
     first: SelectedListItem;
@@ -24,12 +24,28 @@ const Tournament = ({ id }: TournamentProps) => {
     const [winnerArr, setWinnerArr] = useState<SelectedListItem[]>([]);
     const [finalWinner, setFinalWinner] = useState<SelectedListItem>();
     const [selectedList, setSelectedList] = useState<SelectedListItem[]>([]);
+    const [imageOrVideo, setImageOrVideo] = useState('');
 
     useEffect(() => {
         async function fetchDatabase() {
           const res = await fetch(`http://localhost:5000/getquiz/${id}`);
           const data = await res.json();
-          setSelectedList(data);
+          console.log('data', data);
+          const list = await data.quizList;
+          const imageVideo = await data.imageOrVideo;
+          console.log(imageVideo + "testestest")
+          setImageOrVideo(imageVideo);
+          let upperBound = 2 ** Math.ceil(Math.log2(list.length));
+              console.log('upperbound', upperBound);
+          
+              const initialLength = list.length;
+              const paddedList = [...list];
+          
+              // Add padding to the list to the next power of 2
+              for (let i = initialLength; i < upperBound; i++) {
+                paddedList.push(DEFAULT_MEDIA_ITEM);
+              }
+              setSelectedList(paddedList); // Set the padded list
         }
         fetchDatabase();
       }, [id]);
@@ -45,7 +61,7 @@ const Tournament = ({ id }: TournamentProps) => {
             setItemState(firstRound[0]);
         }
         fetchData();
-    }, [selectedList]); // Re-run when selectedList changes
+    }, [selectedList, setSelectedList]); // Re-run when selectedList changes
 
     function handleOnClick(clickedItem: SelectedListItem) {
         if (roundState.length <= 1) {
@@ -86,6 +102,7 @@ const Tournament = ({ id }: TournamentProps) => {
             handleOnClick={handleOnClick}
             totalRoundCount={roundState.length}
             finalWinner={finalWinner}
+            imageOrVideo={imageOrVideo}
         />
     );
 };

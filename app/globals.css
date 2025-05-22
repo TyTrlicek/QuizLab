@@ -4,17 +4,21 @@
 /* globals.css */
 
 :root {
-  --background-color: #0A0A23;
-  --primary-color: #FF007C;
-  --primary-hover: #DA0069;
-  --accent-color: #00FFFF;
-  --accent-hover: #00E0E0;
+  --background-color: #121212;
+  --background-secondary: #1E1E1E;
+  --primary-color: #BB86FC;
+  --primary-hover: #9B6FEF;
+  --accent-color: #03DAC6;
+  --accent-hover: #02C1AF;
   --text-color: #FFFFFF;
-  --text-secondary: #A2A2F6;
-  --input-bg: #1E1E42;
-  --dark-gray: #2F2F56;
-  --border-color: #3D3D7A;
+  --text-secondary: #B3B3B3;
+  --input-bg: #2C2C2C;
+  --dark-gray: #3C3C3C;
+  --border-color: #444444;
 }
+
+
+
 
 
 body {

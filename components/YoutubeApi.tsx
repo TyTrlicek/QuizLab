@@ -131,7 +131,7 @@ const toggleEditMode = (videoId: string) => {
 
           <button
             className="border border-white rounded-md p-2 cursor-pointer"
-            style={{ backgroundColor: 'var(--accent-color)', color: 'var(--text-secondary)' }}
+            style={{ backgroundColor: 'var(--accent-color)', color: 'white' }}
             onClick={handleClearUrls}
             
           >
@@ -200,7 +200,7 @@ const toggleEditMode = (videoId: string) => {
             Selected Videos <span className='text-sm'>{`${selectedList.filter(isVideo).length}/64`}</span>
           </h1>
           <Button variant={'default'} size={'sm'} effect={'ringHover'} onClick={handleClearUrls} className='cursor-pointer'
-          style={{ backgroundColor: 'var(--accent-color)', color: 'var(--text-secondary)' }}>
+          style={{ backgroundColor: 'var(--accent-color)', color: 'white' }}>
             Clear List
           </Button>
         </div>

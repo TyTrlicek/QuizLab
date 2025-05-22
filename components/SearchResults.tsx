@@ -251,7 +251,7 @@ const SearchResults: React.FC = () => {
       {searchResults.length === 0 && query.length > 1 && !loading && <p></p>}
 
       {searchCategory === 'Anime' && searchResults.length > 0 && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-96 overflow-auto no-scrollbar">
           {searchResults.map((item, index) =>
             isAnime(item) ? (
               <div key={`anime-${item.mal_id}-${index}`} onClick={() => handleImageSelection(item)} className="cursor-pointer hover:opacity-80">
@@ -264,7 +264,7 @@ const SearchResults: React.FC = () => {
       )}
 
       {searchCategory === 'Music' && searchResults.length > 0 && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-h-96 overflow-auto no-scrollbar">
           {searchResults.map((item, index) =>
             isMusic(item) ? (
               <div key={`music-${item.music_id || index}`} onClick={() => handleImageSelection(item)} className="cursor-pointer hover:opacity-80">

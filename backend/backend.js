@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import prisma from './prismaClient.js';
+import { ListStart } from 'lucide-react';
 const app = express();
 const port = 5000;
 
@@ -38,9 +39,10 @@ app.get('/api/spotify-token', async (req, res) => {
 });
 
 app.post('/api/create', async (req, res) => {
-  const { quizTitle, selectedCategories, quizType, reducedList, mediaType } = req.body;
-
+  const { quizTitle, selectedCategories, quizType, reducedList, mediaType, imageOrVideo } = req.body;
   console.log('Quiz Submit received', req.body);
+  console.log("test", req.body.imageOrVideo);
+  console.log("image or video backend", imageOrVideo)
 
   const quiz = await prisma.quiz.create({
     data: {
@@ -48,7 +50,8 @@ app.post('/api/create', async (req, res) => {
       selectedCategories,
       quizType,
       quizList: reducedList,
-      image: reducedList[0].image
+      image: reducedList[0].image,
+      imageOrVideo,
     }
   })
 
@@ -66,10 +69,19 @@ app.get('/getquiz/:id', async (req, res) => {
   if (!list) {
     return res.status(404).json({ error: 'Quiz not found' });
   }
-
-  res.json(list.quizList);
+  if(list.imageOrVideo === "Video") {
+  res.json({ 
+    quizList: list.quizList,
+    imageOrVideo: "Video"
+  });
+}
+else {
+  res.json({ 
+    quizList: list.quizList,
+    imageOrVideo: "Image"
+  });
+}
 });
-
 
 app.get('/home', async (req,res) => {
   try{
