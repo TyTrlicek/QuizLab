@@ -19,7 +19,6 @@ const QuizCard = ({ title, created, user, thumbnail, id, categories, length }: Q
   return (
     <Link href={`/tournament/${id}`}>
     <div className="rounded-lg overflow-hidden shadow-md flex flex-col h-96 not-[]:h-full cursor-pointer transition-transform duration-300 hover:scale-105 hover:shadow-lg">
-  {/* Image container with dynamic height */}
   <div className="flex items-center justify-center overflow-hidden border-b-2 border-gray-700 py-0 h-2/3"  style={{ backgroundColor: 'var(--background-secondary)'}}>
     <img
       src={thumbnail}
@@ -28,7 +27,6 @@ const QuizCard = ({ title, created, user, thumbnail, id, categories, length }: Q
     />
   </div>
   
-  {/* Content section */}
   <div className="p-4 flex flex-col h-1/3" style={{ backgroundColor: 'var(--background-secondary)'}}>
     <h2 className="text-lg font-bold text-gray-800 mb-2">{title}</h2>
     <div>

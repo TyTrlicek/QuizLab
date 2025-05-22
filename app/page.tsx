@@ -15,7 +15,7 @@ import { Post, SelectedListItem } from "@/components/types";
 export default function Home() {
   const [postState, setPostState] = useState<Post[]>([]);
   const [selectedSort, setSelectedSort] = useState('Newest');
-  const [selectedCategory, setSelectedCategory] = useState('all'); // or categoriesList[0]
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   useEffect(() => {
     async function fetchPosts() {

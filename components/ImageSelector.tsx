@@ -18,7 +18,7 @@ const ImageSelector: React.FC = () => {
     setPreviewUrl(url);
   
     const uploadedItem: UploadedImage = {
-      id: Date.now().toString(),  // Simple unique ID
+      id: Date.now().toString(),
       title: file.name,
       type: 'image',
       mediaType: 'upload',
@@ -48,7 +48,7 @@ const ImageSelector: React.FC = () => {
 
   return (
     <div className="max-w-lg mx-auto my-8 border border-border-color rounded-lg shadow-sm">
-      {/* Tab Buttons */}
+
       <div className="flex border-b border-border-color">
         <button
           onClick={() => setActiveTab('upload')}
@@ -70,7 +70,6 @@ const ImageSelector: React.FC = () => {
         </button>
       </div>
 
-      {/* Content Section */}
       <div className="p-4">
         {activeTab === 'upload' ? (
           <div
@@ -93,7 +92,6 @@ const ImageSelector: React.FC = () => {
               Choose File
             </span>
 
-            {/* Optional Image Preview */}
             {previewUrl && (
               <img
                 src={previewUrl}

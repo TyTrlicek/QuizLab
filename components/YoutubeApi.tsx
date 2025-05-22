@@ -13,7 +13,6 @@ const { selectedList, setSelectedList } = useSelectedList();
 
   const [videoEdits, setVideoEdits] = useState<Record<string, { title: string; isEditing: boolean }>>({});
 
-// Handle input change
 const handleTitleChange = (videoId: string, newTitle: string) => {
   setVideoEdits(prev => ({
     ...prev,
@@ -21,11 +20,9 @@ const handleTitleChange = (videoId: string, newTitle: string) => {
   }));
 };
 
-// Handle title confirm
 const handleTitleSubmit = (videoId: string) => {
     const editedTitle = videoEdits[videoId]?.title || '';
   
-    // Update the selected list with the new title
     setSelectedList(prevList =>
       prevList.map(item =>
         isVideo(item) && item.videoId === videoId
@@ -34,14 +31,12 @@ const handleTitleSubmit = (videoId: string) => {
       )
     );
   
-    // Exit edit mode
     setVideoEdits(prev => ({
       ...prev,
       [videoId]: { ...prev[videoId], isEditing: false },
     }));
   };
 
-// Toggle editing mode
 const toggleEditMode = (videoId: string) => {
   setVideoEdits(prev => ({
     ...prev,
@@ -117,7 +112,7 @@ const toggleEditMode = (videoId: string) => {
                 mediaType: 'video',
               };
 
-              setSelectedList(prev => [...prev, newEntry]);  // Adding the new entry
+              setSelectedList(prev => [...prev, newEntry]);
               setInputValue('');
               setVideoEdits(prev => ({
                 ...prev,

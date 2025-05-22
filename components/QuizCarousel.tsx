@@ -1,9 +1,7 @@
 import React from 'react';
 
 interface QuizCarouselProps {
-  // An array of React component types that represent individual quiz templates.
   quizTemplates: string[]
-  // Optional prop to specify the maximum width of the container.
   maxWidth?: string;
 }
 

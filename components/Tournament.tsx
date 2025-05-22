@@ -41,11 +41,10 @@ const Tournament = ({ id }: TournamentProps) => {
               const initialLength = list.length;
               const paddedList = [...list];
           
-              // Add padding to the list to the next power of 2
               for (let i = initialLength; i < upperBound; i++) {
                 paddedList.push(DEFAULT_MEDIA_ITEM);
               }
-              setSelectedList(paddedList); // Set the padded list
+              setSelectedList(paddedList);
         }
         fetchDatabase();
       }, [id]);
@@ -54,14 +53,13 @@ const Tournament = ({ id }: TournamentProps) => {
         if (!selectedList || selectedList.length === 0) {
             return;
         }
-        // Fetch first round data when selectedList is available
         async function fetchData() {
             const firstRound = await getFirstRound(selectedList);
             setRoundState(firstRound);
             setItemState(firstRound[0]);
         }
         fetchData();
-    }, [selectedList, setSelectedList]); // Re-run when selectedList changes
+    }, [selectedList, setSelectedList]); 
 
     function handleOnClick(clickedItem: SelectedListItem) {
         if (roundState.length <= 1) {

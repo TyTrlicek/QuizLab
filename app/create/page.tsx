@@ -41,18 +41,17 @@ const page = () => {
     }
 
     if (quizType === 'Tournament' && imageOrVideo === "Image") {
-      // Calculate the upper bound for padding (padded to the next power of 2)
+
     let upperBound = 2 ** Math.ceil(Math.log2(selectedList.length));
 
     const initialLength = selectedList.length;
     const paddedList = [...selectedList];
 
-    // Add padding to the list to the next power of 2
     for (let i = initialLength; i < upperBound; i++) {
       paddedList.push(DEFAULT_MEDIA_ITEM);
     }
 
-    setSelectedList(paddedList); // Set the padded list
+    setSelectedList(paddedList);
       const reducedList = selectedList.map(item => ({
         id: item.id,
         title: item.title,
@@ -74,7 +73,7 @@ const page = () => {
         
     
         setTimeout(() => {
-          router.push('/'); // Navigate to the tournament page
+          router.push('/');
         }, 0);
       } catch (error) {
         console.error('Error sending Post request:', error);
@@ -115,7 +114,7 @@ const page = () => {
             
     
             setTimeout(() => {
-              router.push('/'); // Navigate to the tournament page
+              router.push('/');
             }, 0);
           } catch (error) {
             console.error('Error sending Post request:', error);
@@ -239,7 +238,6 @@ const page = () => {
                     >
                       ✕
                     </button>
-                    
                   </div>
                   <div key={`title-${index}`}>{item.title || 'default title'}</div>
                   </div>

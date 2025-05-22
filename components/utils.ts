@@ -21,16 +21,12 @@ export const categoriesList = [
 
 export const getImageUrl = (item: SelectedListItem): string => {
   if ('videoId' in item) {
-    // It's a YouTube entry
     return `https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`;
   } else if (isAnime(item)) {
-    // It's an Anime item
     return item.images.jpg.image_url;
   } else if (isMusic(item)) {
-    // It's a Music item
     return item.picture_medium;
   }
-  // Fallback image
   return 'https://via.placeholder.com/300';
 };
 

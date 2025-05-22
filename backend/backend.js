@@ -5,11 +5,16 @@ import { ListStart } from 'lucide-react';
 const app = express();
 const port = 5000;
 
+require('dotenv').config();
+
+
+
 app.use(cors());
 app.use(express.json());
 app.get('/api/spotify-token', async (req, res) => {
-    const CLIENT_ID = '16c1f06da8d146f3bd24ddabf70153c6';
-    const CLIENT_SECRET = '5c4b8e2034d6414b807383e5a58cf331';
+  const CLIENT_ID = process.env.CLIENT_ID;
+
+  const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
   const auth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64');
 
@@ -55,7 +60,6 @@ app.post('/api/create', async (req, res) => {
     }
   })
 
-  //console.log(quiz);
   res.json({ message: 'Data received successfully!', received: req.body });
 });
 

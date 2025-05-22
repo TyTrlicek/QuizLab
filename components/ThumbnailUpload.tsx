@@ -22,7 +22,6 @@ const ThumbnailUpload: React.FC<ThumbnailUploadProps> = ({ onFileSelect }) => {
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    // Keep the active state true to style the component while dragging
     setDragActive(true);
   };
 

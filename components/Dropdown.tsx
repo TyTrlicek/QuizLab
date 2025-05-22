@@ -16,8 +16,8 @@ const Dropdown = ({ dropDownElements, dropDownTitle, onChange, width }: Dropdown
   const [selectedItem, setSelectedItem] = useState(dropDownTitle);
 
   const handleItemClick = (item: string) => {
-    setSelectedItem(item); // Update the selected item
-    setIsOpen(false); // Close the dropdown after selection
+    setSelectedItem(item);
+    setIsOpen(false);
     onChange?.(item);
   };
 

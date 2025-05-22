@@ -4,18 +4,15 @@ import { useSelectedList } from './SelectedListContext';
 import Dropdown from './Dropdown';
 import { MediaItem, SelectedListItem, isAnime, isMusic } from './types';
 
-// Function to get the access token using client credentials flow (for Spotify)
 async function getAccessToken() {
   const response = await fetch('http://localhost:5000/api/spotify-token');
   const data = await response.json();
   return data.access_token;
 }
 
-// Function to search Spotify (for songs, artists, albums)
 async function searchSpotify(query: string, musicType: string | null) {
   const token = await getAccessToken();
 
-  // Determine which type to search for based on the musicType
   let typeParam = 'track,album,artist';
   if (musicType === 'Songs') typeParam = 'track';
   else if (musicType === 'Albums') typeParam = 'album';
@@ -31,12 +28,9 @@ async function searchSpotify(query: string, musicType: string | null) {
   return data;
 }
 
-// Function to map Spotify data to your MediaItem types
 function mapSpotifyToMediaItem(data: any) {
-  // Create arrays for each type
   const mappedItems = [];
   
-  // Process tracks if they exist
   if (data.tracks?.items) {
     const tracks = data.tracks.items.map((item: any) => ({
       id: item.id,
@@ -52,7 +46,6 @@ function mapSpotifyToMediaItem(data: any) {
     mappedItems.push(...tracks);
   }
   
-  // Process albums if they exist
   if (data.albums?.items) {
     const albums = data.albums.items.map((item: any) => ({
       id: item.id,
@@ -68,7 +61,6 @@ function mapSpotifyToMediaItem(data: any) {
     mappedItems.push(...albums);
   }
   
-  // Process artists if they exist
   if (data.artists?.items) {
     const artists = data.artists.items.map((item: any) => ({
       id: item.id,
@@ -86,7 +78,6 @@ function mapSpotifyToMediaItem(data: any) {
   return mappedItems.filter(Boolean);
 }
 
-// Main component
 const SearchResults: React.FC = () => {
   const [query, setQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SelectedListItem[]>([]);
@@ -95,12 +86,9 @@ const SearchResults: React.FC = () => {
   const [searchCategory, setSearchCategory] = useState<string>('Anime');
   const [musicType, setMusicType] = useState<string | null>(null);
   
-  // Use a ref to keep track of the current category
   const categoryRef = useRef(searchCategory);
-  // Use a ref for music type as well
   const musicTypeRef = useRef(musicType);
   
-  // Update the refs whenever states change
   useEffect(() => {
     categoryRef.current = searchCategory;
   }, [searchCategory]);
@@ -114,7 +102,6 @@ const SearchResults: React.FC = () => {
     
     setLoading(true);
     
-    // Use the refs to get current values
     const currentCategory = categoryRef.current;
     const currentMusicType = musicTypeRef.current;
     
@@ -123,13 +110,10 @@ const SearchResults: React.FC = () => {
     try {
       if (currentCategory === 'Anime') {
         const response = await fetch(`https://api.jikan.moe/v4/anime?q=${searchQuery}`);
-        console.log("search query", searchQuery);
-        console.log("search results", searchResults);
         const data = await response.json();
         console.log('data', data);
         setSearchResults(data.data || []);
         setTimeout(() => {
-          console.log("search results", searchResults);
         }, 1000);
         
       } else if (currentCategory === 'Music') {
@@ -148,7 +132,6 @@ const SearchResults: React.FC = () => {
     }
   }, []);
 
-  // Create a debounced search function
   const debouncedSearch = useCallback(
     debounce((searchQuery: string) => {
       handleSearch(searchQuery);
@@ -156,18 +139,15 @@ const SearchResults: React.FC = () => {
     [handleSearch]
   );
 
-  // Re-trigger search when category or music type changes
   useEffect(() => {
     console.log('Category changed to:', searchCategory);
     if (query.trim()) {
-      // Small delay to ensure state update is reflected
       setTimeout(() => {
         debouncedSearch(query);
       }, 0);
     }
   }, [searchCategory, query]);
   
-  // Re-trigger search when music type changes
   useEffect(() => {
     console.log('Music type changed to:', musicType);
     if (searchCategory === 'Music' && query.trim()) {
@@ -191,10 +171,8 @@ const SearchResults: React.FC = () => {
   const handleDropdownChange = (selectedSearchCategory: string) => {
     console.log('Changing search category to:', selectedSearchCategory);
     setSearchCategory(selectedSearchCategory);
-    // Clear previous search results when changing category
     setSearchResults([]);
     
-    // Reset music type when changing to/from Music category
     if (selectedSearchCategory !== 'Music') {
       setMusicType(null);
     }

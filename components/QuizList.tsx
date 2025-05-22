@@ -17,7 +17,6 @@ const QuizList = ({ posts, selectedCategory, selectedSort }: QuizListProps) => {
   .filter((post) =>
     selectedCategory === "all" ? true : post.selectedCategories.includes(selectedCategory)
   )
-  // .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()); // newest first
   
   return (
     <div>
