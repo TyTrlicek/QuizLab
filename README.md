@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏆 Tournament Hub
 
-## Getting Started
+A modern web application for creating and competing in head-to-head elimination tournaments using images or YouTube videos.
 
-First, run the development server:
+![Next.js](https://img.shields.io/badge/Next.js-15.3-black) ![React](https://img.shields.io/badge/React-19.0-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue) ![Tailwind](https://img.shields.io/badge/Tailwind-4.1-cyan)
 
+## ✨ Features
+
+- **Tournament Creation** - Build elimination brackets with images or YouTube videos
+- **YouTube Integration** - Automatic video title fetching via YouTube oEmbed API
+- **Real-time Voting** - Smooth head-to-head battles with animated progressions
+- **Mobile-First Design** - Responsive glassmorphism UI with Framer Motion animations
+- **Content Management** - Browse, select, and organize tournament entries with live previews
+
+## 🛠 Tech Stack
+
+- **Frontend:** Next.js 15, React 19, TypeScript, Tailwind CSS, Framer Motion
+- **Backend:** Node.js, Express, PostgreSQL, Prisma ORM
+- **Services:** Supabase, YouTube oEmbed API
+- **UI:** Radix UI, Lucide Icons, Custom glassmorphism design system
+
+## 🚀 Quick Start
+
+### Frontend
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Backend
+```bash
+npm run server
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Visit `http://localhost:3000` to see the application.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project Structure
 
-## Learn More
+```
+├── app/                    # Next.js app router pages
+├── components/             # Reusable React components
+├── backend/               # Express API server
+├── lib/                   # Utility functions and configs
+└── public/                # Static assets
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🎯 Coming Soon
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Trivia quiz creation
+- Tier list rankings
+- User profiles and statistics
+- Social sharing features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🏗 Architecture
 
-## Deploy on Vercel
+- **Frontend:** Server-side rendered with client-side interactivity
+- **Database:** PostgreSQL with Prisma for type-safe queries
+- **API:** RESTful endpoints for tournament CRUD operations
+- **Real-time:** Tournament progression with optimistic updates
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with modern web technologies for a seamless tournament experience.
