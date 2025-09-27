@@ -2,34 +2,51 @@ import React, { ChangeEvent, useRef, useState } from 'react';
 import SearchResults from './SearchResults';
 import { useSelectedList } from './SelectedListContext';
 import { UploadedImage } from './types';
+import { supabase } from '@/lib/supbaseClient';
 
 
 type Tab = 'upload' | 'search';
 
 const ImageSelector: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('upload');
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { selectedList, setSelectedList } = useSelectedList();
-  
 
-  const processFile = (file: File) => {
-    const url = URL.createObjectURL(file);
-    setPreviewUrl(url);
+  const processFile = async (file: File) => {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const filePath = `uploads/${fileName}`;
   
-    const uploadedItem: UploadedImage = {
-      id: Date.now().toString(),
-      title: file.name,
-      type: 'image',
-      mediaType: 'upload',
-      imageUrl: url,
-      file: file,
-    };
+    // Upload file to Supabase Storage
+    const { data, error } = await supabase.storage
+      .from('images')
+      .upload(filePath, file);
   
-    setSelectedList(prev => [...prev, uploadedItem]);
+    if (error) {
+      console.error('Error uploading file:', error.message);
+      return;
+    }
   
-    console.log("Selected file:", file);
+    // Get public URL (if bucket is public)
+    const { data: { publicUrl } } = supabase.storage
+  .from('images')
+  .getPublicUrl(filePath);
+
+const uploadedItem: UploadedImage = {
+  id: Date.now().toString(),
+  title: file.name,
+  type: 'image',
+  uploadUrl: publicUrl,
+  mediaType: 'upload',
+  imageUrl: publicUrl,
+  file: file,
+};
+
+console.log('public url', publicUrl)
+
+setSelectedList((prev) => [...prev, uploadedItem]);
   };
+  
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -91,14 +108,6 @@ const ImageSelector: React.FC = () => {
             <span className="inline-block py-2 px-4 bg-accent-color text-white rounded hover:bg-accent-hover transition">
               Choose File
             </span>
-
-            {previewUrl && (
-              <img
-                src={previewUrl}
-                alt="Preview"
-                className="mt-6 max-h-48 mx-auto rounded shadow"
-              />
-            )}
           </div>
         ) : (
           <SearchResults />

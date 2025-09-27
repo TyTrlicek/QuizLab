@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Quiz App",
-  description: "Default Description",
+  title: "QuizLab - Advanced Quiz Platform",
+  description: "Experience the future of quizzes with tournaments, trivia, and tier lists in our high-tech platform",
 };
 
 export default function RootLayout({

@@ -1,7 +1,7 @@
 'use client'
 import { useSelectedList } from '@/components/SelectedListContext';
 import { Anime } from '@/components/types/Anime';
-import { isAnime, isMusic, SelectedListItem, YoutubeEntry } from './types';
+import { isAnime, isMusic, isUpload, SelectedListItem, YoutubeEntry } from './types';
 
 async function fetchList() {
   
@@ -26,6 +26,10 @@ export const getImageUrl = (item: SelectedListItem): string => {
     return item.images.jpg.image_url;
   } else if (isMusic(item)) {
     return item.picture_medium;
+  }
+  else if (isUpload(item))
+  {
+    return item.uploadUrl;
   }
   return 'https://via.placeholder.com/300';
 };

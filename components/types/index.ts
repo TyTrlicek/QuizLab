@@ -34,6 +34,7 @@ export interface BaseMedia {
 
   export interface UploadedImage extends BaseMedia {
     mediaType: 'upload';
+    uploadUrl: string
     file: File;
   }
   
@@ -77,6 +78,7 @@ export interface BaseMedia {
     },
   };
 
+
   export interface Post {
     id: number;
     quizTitle: string;
@@ -92,7 +94,9 @@ export interface BaseMedia {
 
   export const isAnime = (item: SelectedListItem): item is Anime =>
     'mal_id' in item;
-  
+
+  export const isUpload = (item: SelectedListItem): item is UploadedImage =>
+    item.mediaType === 'upload'
   export const isMusic = (item: SelectedListItem): item is Music =>
     'music_id' in item && item.mediaType === 'music';
   

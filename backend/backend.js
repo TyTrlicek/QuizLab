@@ -5,7 +5,8 @@ import { ListStart } from 'lucide-react';
 const app = express();
 const port = 5000;
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 

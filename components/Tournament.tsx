@@ -25,6 +25,7 @@ const Tournament = ({ id }: TournamentProps) => {
     const [finalWinner, setFinalWinner] = useState<SelectedListItem>();
     const [selectedList, setSelectedList] = useState<SelectedListItem[]>([]);
     const [imageOrVideo, setImageOrVideo] = useState('');
+    const [pendingWinner, setPendingWinner] = useState<SelectedListItem | null>(null);
 
     useEffect(() => {
         async function fetchDatabase() {
@@ -62,18 +63,23 @@ const Tournament = ({ id }: TournamentProps) => {
     }, [selectedList, setSelectedList]); 
 
     function handleOnClick(clickedItem: SelectedListItem) {
-        if (roundState.length <= 1) {
-            handleRoundChange(clickedItem, true);
-            return;
-        }
+        setPendingWinner(clickedItem);
 
-        if (index < roundState.length - 1) {
-            setItemState(roundState[index + 1]);
-            setWinnerArr(prev => [...prev, clickedItem]);
-            setIndex(prev => prev + 1);
-        } else {
-            handleRoundChange(clickedItem);
-        }
+        setTimeout(() => {
+            setPendingWinner(null);
+
+            if (roundState.length <= 1) {
+                handleRoundChange(clickedItem, true);
+                return;
+            }
+            if (index < roundState.length - 1) {
+                setItemState(roundState[index + 1]);
+                setWinnerArr(prev => [...prev, clickedItem]);
+                setIndex(prev => prev + 1);
+            } else {
+                handleRoundChange(clickedItem);
+            }
+        }, 1500)     
     }
 
     function handleRoundChange(clickedItem: SelectedListItem, isLast = false) {
@@ -101,6 +107,7 @@ const Tournament = ({ id }: TournamentProps) => {
             totalRoundCount={roundState.length}
             finalWinner={finalWinner}
             imageOrVideo={imageOrVideo}
+            pendingWinner = {pendingWinner}
         />
     );
 };
